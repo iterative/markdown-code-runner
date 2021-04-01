@@ -14,11 +14,11 @@ def get_container(image_name):
     global _containers
     if image_name not in _containers:
         client = get_client()
-        _containers[image_name] = client.containers.run(image=image_name, detach=True)
+        _containers[image_name] = client.containers.run(image=image_name, detach=True, tty=True)
     return _containers[image_name]
 
 def run_in_container(image_name, command):
     container = get_container(image_name)
     (exit_code, output) = container.exec_run(cmd=command)
-    print(output)
+    return (exit_code, output)
 
