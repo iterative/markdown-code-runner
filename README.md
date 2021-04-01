@@ -24,7 +24,7 @@ containers. Normally you only need to use scripts in this directory.
 
 `test/test-files`: Various markdown documents that contains code. 
 
-### Extract Code
+## Extract Code
 
 `bin/extract-md-code.py` can be used to extract code from Markdown files. By
 default, it extracts all `inline code` and code blocks enclosed by ```. There
