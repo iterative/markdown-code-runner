@@ -9,12 +9,13 @@ class ExecuteTestCase(unittest.TestCase):
         self.assertIsNotNone(c, f"Client is None")
 
     def test_get_container(self):
-        c = execute.get_container("alpine")
+        c = execute.get_container("bash")
         self.assertIsNotNone(c, "Container is None")
 
     def test_run_in_container(self):
-        res = execute.run_in_container("alpine", "echo 'hello world'")
-        self.assertEqual(res, b"hello world")
+        exit_code, res = execute.run_in_container("bash", "echo 'hello world'")
+        self.assertEqual(exit_code, 0)
+        self.assertEqual(res, b"hello world\n")
 
 
 def suite():
