@@ -17,6 +17,17 @@ class ExecuteTestCase(unittest.TestCase):
         self.assertEqual(exit_code, 0)
         self.assertEqual(res, b"hello world\n")
 
+        exit_code, res = execute.run_in_container("bash", "$ echo 'hello dollar'")
+        self.assertEqual(exit_code, 0)
+        self.assertEqual(res, b"hello dollar\n")
+
+        exit_code, res = execute.run_in_container("bash", """$ echo \\
+                                                            'hello split'""")
+        self.assertEqual(exit_code, 0)
+        self.assertEqual(res, b"hello split\n")
+
+    
+
 
 def suite():
     suite = unittest.TestSuite()
