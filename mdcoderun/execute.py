@@ -21,11 +21,10 @@ def get_container(image_name: str):
 
 def _merge_command_lines(command: str):
     "Merges command lines split by \\"
-    command.replace("\\\n", "")
-    return command
+    return command.replace("\\\n", "")
 
 def _fix_initial_dollar(command: str):
-    re.sub(r"^[$]\s+", "", command)
+    command = re.sub(r"^[$]\s+", "", command)
     return command
 
 def run_in_container(image_name: str, command: str, fix_initial_dollar=True):
@@ -33,7 +32,7 @@ def run_in_container(image_name: str, command: str, fix_initial_dollar=True):
     command = _merge_command_lines(command)
     if fix_initial_dollar:
         command = _fix_initial_dollar(command)
-
+    print(f"Running: {command}")
     (exit_code, output) = container.exec_run(cmd=command)
     return (exit_code, output)
 
