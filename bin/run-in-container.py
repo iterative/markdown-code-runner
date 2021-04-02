@@ -17,6 +17,7 @@ def main():
     argparser.add_argument("--katacoda-tag", "-k", default="", help="The Katacoda tag that will be searched in .md code blocks, e.g., for {{execute}}, specify 'execute'")
     argparser.add_argument("--no-inline", action="store_true", default = False, help="Skip `inline code elements` while parsing")
     argparser.add_argument("--no-block", action="store_true", default = False, help="Skip ```\ncode\nblocks\n``` while parsing")
+    argparser.add_argument("--no-fix-initial-dollar", action="store_true", default = False, help="Don't remove initial $ signs in code blocks")
     argparser.add_argument("--language", "-l", default="", help="Filter the blocks by ```language\ncode\ncode\n```. Implies --no-inline, as inline code elements cannot specify language")
     argparser.add_argument("--debug", default=False, action="store_true", help="Show debug output")
     
@@ -26,6 +27,7 @@ def main():
     katacoda_tag = args.katacoda_tag
     inline = not args.no_inline
     block = not args.no_block
+    fix_initial_dollar = not args.no_fix_initial_dollar
     language = args.language
     debug = args.debug
 
@@ -41,8 +43,8 @@ def main():
             language = language
         )
         for cb in code_blocks: 
-            result = execute.run_in_container(container, cb.code)
-            print(result[1].decode(encoding="utf-8"))
+            result = execute.run_in_container(container, cb.code, fix_initial_dollar=fix_initial_dollar, debug=debug)
+            print(result[1])
 
 
 if __name__ == "__main__":
