@@ -13,20 +13,27 @@ class ExecuteTestCase(unittest.TestCase):
         self.assertIsNotNone(c, "Container is None")
 
     def test_run_in_container(self):
-        exit_code, res = execute.run_in_container("bash", "echo 'hello world'")
-        self.assertEqual(exit_code, 0)
-        self.assertEqual(res, b"hello world\n")
+        exit_codes, res = execute.run_in_container("bash", "echo 'hello world'")
+        self.assertEqual(exit_codes, [0])
+        self.assertEqual(res, "hello world\n")
 
-        exit_code, res = execute.run_in_container("bash", "$ echo 'hello dollar'")
-        self.assertEqual(exit_code, 0)
-        self.assertEqual(res, b"hello dollar\n")
+        exit_codes, res = execute.run_in_container("bash", "$ echo 'hello dollar'")
+        self.assertEqual(exit_codes, [0])
+        self.assertEqual(res, "hello dollar\n")
 
-        exit_code, res = execute.run_in_container("bash", """$ echo \\
+        exit_codes, res = execute.run_in_container("bash", """$ echo \\
                                                             'hello split'""")
-        self.assertEqual(exit_code, 0)
-        self.assertEqual(res, b"hello split\n")
+        self.assertEqual(exit_codes, [0])
+        self.assertEqual(res, "hello split\n")
 
-    
+        exit_codes, res = execute.run_in_container("bash", """echo 'hello world'
+echo 'hi mars'
+        """)
+        self.assertEqual(exit_codes, [0, 0])
+        self.assertEqual(res, """hello world
+
+hi mars
+""")
 
 
 def suite():
