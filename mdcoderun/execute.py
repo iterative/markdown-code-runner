@@ -21,7 +21,7 @@ def get_container(image_name: str):
 
 def _merge_command_lines(command: str):
     "Merges command lines split by \\"
-    return command.replace("\\\n", "")
+    return re.sub(r"\\\s*\n\s*", " ", command)
 
 def _fix_initial_dollar(command: str):
     command = re.sub(r"^[$]\s+", "", command)
@@ -43,9 +43,17 @@ def run_in_container(image_name: str, command: str, fix_initial_dollar=True, deb
         if len(cmd.strip()) == 0:
             continue
         if debug:
-            print(f"Running: {command}")
+            print(f"### Running ###\n{cmd}\n###############\n")
         (exit_code, output) = container.exec_run(cmd=cmd)
+        if debug:
+            print(f"### Exit Code: {exit_code}")
+            print(f"### Output ###\n{output}\n############\n")
         exit_codes.append(exit_code)
         outputs.append(output.decode(encoding="utf-8"))
 
     return (exit_codes, "\n".join(outputs))
+
+def stop_containers():
+    for k, c in _containers.items():
+        c.stop()
+
