@@ -42,7 +42,7 @@ def main():
         )
         for cb in code_blocks: 
             result = execute.run_in_container(container, cb.code)
-            print(result)
+            print(result[1].decode(encoding="utf-8"))
 
 
 if __name__ == "__main__":
