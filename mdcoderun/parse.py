@@ -2,9 +2,9 @@ import re
 from . import CodeBlock
 
 
-CODE_BLOCK_REGEX = r"""^(```)([\S]+)?
+CODE_BLOCK_REGEX = r"""(^```)([\S]+)?\s*
 ([\s\S]+?)
-(```)"""
+(^```)"""
 "Regex to capture code blocks in the document"
 
 INLINE_CODE_REGEX = r"(`)([^`]+)(`)"

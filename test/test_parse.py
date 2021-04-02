@@ -46,7 +46,7 @@ and also
    print(x, y)
 ```{{execute}}
 """, 
-                  ["{{execute}}"],
+                  ["execute"],
                   [CodeBlock(code="print",
                              start_pos=1,
                              end_pos=19,
@@ -72,13 +72,25 @@ and also
                          r"""dvc exp run --set-param featurize.max_features=1500 \
             -S featurize.ngrams=2""",
                          "git diff params.yaml",
-                         "dvc exp diff"]}
+                         "dvc exp diff"],
+                          "05-cleaning-up.md":
+                          [r"""dvc exp show --no-timestamp \
+             --include-params train.n_est \
+             --no-pager""",
+                           r"""dvc exp show -n 2 --no-timestamp \
+                  --include-params train.n_est \
+                  --no-pager""",
+                        r"""dvc exp gc  --workspace 
+dvc exp show -n 2 --no-timestamp \
+                  --include-params train.n_est \ 
+                  --no-pager"""]
+                          }
 
         for test_filename in execute_blocks:
             test_filepath = f"test/test-files/{test_filename}"
-            print(f"Testing: {test_filepath}")
+            # print(f"Testing: {test_filepath}")
             out_cbs = [cb.code for cb in parse.parse_file(test_filepath, 
-                                         katacoda_tags=["{{execute}}"])]
+                                         katacoda_tags=["execute"])]
             self.assertEqual(out_cbs,
                              execute_blocks[test_filename],
                              f"Test for {test_filepath} fails:\nRequired:{execute_blocks[test_filename]}\nGot:\n{out_cbs}\n")

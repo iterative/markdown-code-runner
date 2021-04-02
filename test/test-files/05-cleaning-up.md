@@ -14,7 +14,7 @@ experiments since the last commit, but don't worry. The experiments remain
 cached and can be shown or applied. For example, use `-n` to show
 experiments from the previous _n_ commits:
 
-``` 
+```
 dvc exp show -n 2 --no-timestamp \
                   --include-params train.n_est \
                   --no-pager
