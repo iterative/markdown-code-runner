@@ -37,6 +37,7 @@ are options to limit the extracted portions.
 usage: extract-md-code.py [-h] [--katacoda-tag KATACODA_TAG] [--no-inline]
                           [--no-block] [--language LANGUAGE] [--debug]
                           files [files ...]
+```
 
 `-l, --language lang`: Used to limit the extracted code to a particular language
 specified like
