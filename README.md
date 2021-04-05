@@ -1,7 +1,7 @@
 # Markdown Code Runner
 
 This repository contains a Python program to run code blocks in Markdown-formatted
-files in Docker containers. Primary use case is running code samples of a
+files in Docker containers. The primary use case is running code samples of 
 documentation in a controlled environment.
 
 For installation, you may want to create a virtual environment after cloning:
@@ -18,14 +18,14 @@ python -m pip install -r requirements.txt
 ```
 ## Directories
 
-`bin`: Contains scripts to extract the code from Mardkwon files and executing
+`bin`: Contains scripts to extract the code from Markdown files and executing
 them in containers. Normally, you only need to use the scripts in this directory.
 
 `mdcoderun`: A python package that can be used to import the parser and execute functionality.
 
 `test`: Unit tests.
 
-`test/test-files`: Various Markdown documents to test the package. 
+`test/test-files`: Various Markdown documents to test the package.
 
 ## Extract Code
 
